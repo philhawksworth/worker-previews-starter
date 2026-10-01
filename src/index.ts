@@ -88,9 +88,10 @@ export default {
 		if (deleteMatch && request.method === "DELETE") {
 			const id = Number(deleteMatch[1]);
 			try {
-				// Intentionally incompatible with workshop/preview-schema.sql. The
-				// workshop repair uses `rowid`, which works with both schemas.
-				await env.DB.prepare("DELETE FROM activity_log WHERE id = ?").bind(id).run();
+				// `rowid` works with both schemas: production's `id` and the
+				// preview schema's `activity_id` are both INTEGER PRIMARY KEY
+				// aliases of it, and the UI already keys entries by `rowid`.
+				await env.DB.prepare("DELETE FROM activity_log WHERE rowid = ?").bind(id).run();
 				return json({ entries: await listEntries(env.DB) });
 			} catch (error) {
 				console.error({
