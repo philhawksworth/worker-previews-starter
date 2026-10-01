@@ -18,11 +18,20 @@
 		"enabled": true
 	},
 	// Preview settings live here. Previews don't inherit production vars or
-	// bindings, so there's no D1 database here yet: adding one is part of the
-	// workshop.
+	// bindings, so this block defines its own.
 	"previews": {
 		"vars": {
 			"ENVIRONMENT": "preview"
+		},
+		"d1_databases": [
+			{
+				"binding": "DB",
+				"database_id": "1d435824-52b3-4101-94b2-75895d21838a",
+				"database_name": "workshop-preview-db"
+			}
+		],
+		"observability": {
+			"enabled": true
 		}
 	}
 }
